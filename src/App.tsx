@@ -11,6 +11,13 @@ import AI from "./pages/AI";
 import Programming from "./pages/Programming";
 import Marketing from "./pages/Marketing";
 import MyLearning from "./pages/MyLearning";
+import Auth from "./pages/Auth";
+import Instructors from "./pages/Instructors";
+import Subscribe from "./pages/Subscribe";
+import Contact from "./pages/Contact";
+import Cart from "./pages/Cart";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +36,13 @@ const App = () => (
           <Route path="/programacao" element={<Programming />} />
           <Route path="/marketing" element={<Marketing />} />
           <Route path="/meu-aprendizado" element={<MyLearning />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/docentes" element={<Instructors />} />
+          <Route path="/assinar" element={<Subscribe />} />
+          <Route path="/contato" element={<Contact />} />
+          <Route path="/carrinho" element={<Cart />} />
+          <Route path="/painel" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

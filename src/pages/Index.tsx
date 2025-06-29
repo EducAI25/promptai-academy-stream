@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import CourseRow from '../components/CourseRow';
 import Footer from '../components/Footer';
+import PWAInstallPrompt from '../components/PWAInstallPrompt';
 import { aiCourses, programmingCourses, marketingCourses, dataScienceCourses, designCourses } from '../data/courses';
 
 const Index = () => {
@@ -21,6 +22,7 @@ const Index = () => {
       </div>
 
       <Footer />
+      <PWAInstallPrompt />
     </div>
   );
 };

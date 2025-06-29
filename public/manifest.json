@@ -1,0 +1,64 @@
+
+{
+  "name": "PromptAI Academy - Escola de Inteligência Artificial",
+  "short_name": "PromptAI Academy",
+  "description": "A melhor plataforma de ensino em Inteligência Artificial, Programação e Marketing Digital",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Meus Cursos",
+      "short_name": "Cursos",
+      "description": "Acesse seus cursos rapidamente",
+      "url": "/painel",
+      "icons": [
+        {
+          "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Todos os Cursos",
+      "short_name": "Explorar",
+      "description": "Explore todos os cursos disponíveis",
+      "url": "/cursos",
+      "icons": [
+        {
+          "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

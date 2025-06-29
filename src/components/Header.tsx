@@ -1,14 +1,70 @@
 
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Search, Bell, User, Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Search, ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const isActive = (path: string) => location.pathname === path;
+
+  useEffect(() => {
+    // Verificar sessão atual
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        loadCartItems(session.user.id);
+      }
+    });
+
+    // Escutar mudanças de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        loadCartItems(session.user.id);
+      } else {
+        setCartItemsCount(0);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const loadCartItems = async (userId: string) => {
+    const { data, error } = await supabase
+      .from('cart_items')
+      .select('*')
+      .eq('user_id', userId);
+    
+    if (!error && data) {
+      setCartItemsCount(data.length);
+    }
+  };
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Erro ao sair",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      navigate('/');
+      toast({
+        title: "Logout realizado",
+        description: "Você foi desconectado com sucesso.",
+      });
+    }
+  };
 
   return (
     <header className="fixed top-0 w-full bg-black/90 backdrop-blur-md z-50 transition-all duration-300">
@@ -25,14 +81,14 @@ const Header = () => {
             </Link>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-6">
+            <nav className="hidden lg:flex space-x-6">
               <Link 
                 to="/" 
                 className={`transition-colors font-medium ${
                   isActive('/') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Início
+                Home
               </Link>
               <Link 
                 to="/cursos" 
@@ -40,39 +96,31 @@ const Header = () => {
                   isActive('/cursos') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Cursos
+                Todos os Cursos
               </Link>
               <Link 
-                to="/ia" 
+                to="/docentes" 
                 className={`transition-colors ${
-                  isActive('/ia') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/docentes') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
-                IA
+                Docentes Convidados
               </Link>
               <Link 
-                to="/programacao" 
+                to="/assinar" 
                 className={`transition-colors ${
-                  isActive('/programacao') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/assinar') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Programação
+                Assinar
               </Link>
               <Link 
-                to="/marketing" 
+                to="/contato" 
                 className={`transition-colors ${
-                  isActive('/marketing') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/contato') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
               >
-                Marketing
-              </Link>
-              <Link 
-                to="/meu-aprendizado" 
-                className={`transition-colors ${
-                  isActive('/meu-aprendizado') ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                Meu Aprendizado
+                Contato
               </Link>
             </nav>
           </div>
@@ -102,20 +150,49 @@ const Header = () => {
               )}
             </div>
 
-            {/* Notifications */}
-            <button className="text-white hover:text-gray-300 transition-colors hidden md:block">
-              <Bell className="w-5 h-5" />
-            </button>
+            {/* Cart */}
+            <Link to="/carrinho" className="relative text-white hover:text-gray-300 transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItemsCount}
+                </span>
+              )}
+            </Link>
 
-            {/* Profile */}
-            <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-red-700 rounded flex items-center justify-center">
-              <User className="w-4 h-4 text-white" />
-            </div>
+            {/* User Menu */}
+            {user ? (
+              <div className="flex items-center space-x-3">
+                <Link 
+                  to="/painel"
+                  className="hidden md:block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
+                >
+                  Painel
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-white hover:text-gray-300 transition-colors"
+                  title="Sair"
+                >
+                  <LogOut className="w-5 h-5" />
+                </button>
+                <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-red-700 rounded flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+              </div>
+            ) : (
+              <Link 
+                to="/auth"
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
+              >
+                Login
+              </Link>
+            )}
 
             {/* Mobile Menu */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white md:hidden"
+              className="text-white lg:hidden"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -124,7 +201,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-gray-800">
+          <nav className="lg:hidden mt-4 pb-4 border-t border-gray-800">
             <div className="flex flex-col space-y-4 mt-4">
               <Link 
                 to="/" 
@@ -133,7 +210,7 @@ const Header = () => {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Início
+                Home
               </Link>
               <Link 
                 to="/cursos" 
@@ -142,44 +219,44 @@ const Header = () => {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Cursos
+                Todos os Cursos
               </Link>
               <Link 
-                to="/ia" 
+                to="/docentes" 
                 className={`transition-colors ${
-                  isActive('/ia') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/docentes') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                IA
+                Docentes Convidados
               </Link>
               <Link 
-                to="/programacao" 
+                to="/assinar" 
                 className={`transition-colors ${
-                  isActive('/programacao') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/assinar') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Programação
+                Assinar
               </Link>
               <Link 
-                to="/marketing" 
+                to="/contato" 
                 className={`transition-colors ${
-                  isActive('/marketing') ? 'text-white' : 'text-gray-300 hover:text-white'
+                  isActive('/contato') ? 'text-white' : 'text-gray-300 hover:text-white'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Marketing
+                Contato
               </Link>
-              <Link 
-                to="/meu-aprendizado" 
-                className={`transition-colors ${
-                  isActive('/meu-aprendizado') ? 'text-white' : 'text-gray-300 hover:text-white'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Meu Aprendizado
-              </Link>
+              {user && (
+                <Link 
+                  to="/painel"
+                  className="text-gray-300 hover:text-white transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Painel
+                </Link>
+              )}
             </div>
           </nav>
         )}
