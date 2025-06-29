@@ -1,12 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import Header from '../components/Header';
+import HeroSection from '../components/HeroSection';
+import CourseRow from '../components/CourseRow';
+import Footer from '../components/Footer';
+import { aiCourses, programmingCourses, marketingCourses, dataScienceCourses, designCourses } from '../data/courses';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-black">
+      <Header />
+      <HeroSection />
+      
+      <div className="py-16 space-y-12">
+        <CourseRow title="🤖 Inteligência Artificial em Alta" courses={aiCourses} />
+        <CourseRow title="💻 Programação & Desenvolvimento" courses={programmingCourses} />
+        <CourseRow title="📈 Marketing Digital & Growth" courses={marketingCourses} />
+        <CourseRow title="📊 Data Science & Analytics" courses={dataScienceCourses} />
+        <CourseRow title="🎨 Design & UX/UI" courses={designCourses} />
       </div>
+
+      <Footer />
     </div>
   );
 };
