@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Play, Clock, Users, Star } from 'lucide-react';
 
 interface CourseCardProps {
+  id: number;
   title: string;
   description: string;
   image: string;
@@ -14,6 +16,7 @@ interface CourseCardProps {
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
+  id,
   title,
   description,
   image,
@@ -24,12 +27,29 @@ const CourseCard: React.FC<CourseCardProps> = ({
   category
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/curso/${id}`);
+  };
+
+  const handleWatchNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/curso/${id}`);
+  };
+
+  const handleAddToList = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Add to wishlist functionality
+    console.log('Added to list:', title);
+  };
 
   return (
     <div 
       className="relative min-w-[300px] h-[170px] rounded-lg overflow-hidden cursor-pointer transition-all duration-300 transform hover:scale-110 hover:z-20 group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
       {/* Course Image */}
       <div className="w-full h-full relative">
@@ -81,11 +101,17 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <p className="text-gray-300 text-sm mb-3 line-clamp-2">{description}</p>
           
           <div className="flex gap-2">
-            <button className="flex-1 px-4 py-2 bg-white text-black font-bold rounded hover:bg-gray-200 transition-colors duration-300 text-sm">
-              Assistir Agora
+            <button 
+              onClick={handleWatchNow}
+              className="flex-1 px-4 py-2 bg-white text-black font-bold rounded hover:bg-gray-200 transition-colors duration-300 text-sm"
+            >
+              Ver Detalhes
             </button>
             
-            <button className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors duration-300 text-sm">
+            <button 
+              onClick={handleAddToList}
+              className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors duration-300 text-sm"
+            >
               + Lista
             </button>
           </div>
