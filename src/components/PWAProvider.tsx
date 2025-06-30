@@ -3,24 +3,28 @@ import React, { useEffect } from 'react';
 
 const PWAProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
+    // Verificar se está no ambiente do navegador
+    if (typeof window === 'undefined') return;
+
     // Registrar Service Worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then((registration) => {
-            console.log('SW registered successfully:', registration.scope);
-            
-            // Verificar se há atualizações
-            registration.addEventListener('updatefound', () => {
-              console.log('SW: Nova versão disponível');
-            });
-          })
-          .catch((error) => {
-            console.error('SW registration failed:', error);
+      const registerSW = async () => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          
+          registration.addEventListener('updatefound', () => {
+            console.log('SW: Nova versão disponível');
           });
-      });
-    } else {
-      console.log('Service Worker não suportado');
+        } catch (error) {
+          console.error('SW registration failed:', error);
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('load', registerSW);
+      } else {
+        registerSW();
+      }
     }
 
     // Detectar se é PWA instalado
@@ -28,7 +32,6 @@ const PWAProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const isInWebAppiOS = (window.navigator as any).standalone === true;
     
     if (isStandalone || isInWebAppiOS) {
-      console.log('Executando como PWA instalado');
       document.documentElement.classList.add('pwa-installed');
     }
   }, []);

@@ -17,22 +17,24 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Verificar se já está logado
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        // Verificar se é admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', session.user.id)
-          .single();
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
 
-        if (profile?.role === 'admin') {
-          navigate('/admin');
-        } else {
-          navigate('/painel');
+          if (profile?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/painel');
+          }
         }
+      } catch (error) {
+        // Silently handle error
       }
     };
     
@@ -44,17 +46,12 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      console.log('🔑 Tentando fazer login com:', email);
-      
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password
       });
 
       if (error) {
-        console.error('❌ Erro no login:', error);
-        
-        // Mensagens de erro mais amigáveis
         let errorMessage = 'Erro ao fazer login';
         if (error.message.includes('Invalid login credentials')) {
           errorMessage = 'Email ou senha incorretos';
@@ -70,22 +67,13 @@ const Auth = () => {
           variant: "destructive",
         });
       } else if (data.user) {
-        console.log('✅ Login realizado com sucesso');
-        
-        // Buscar perfil do usuário
-        const { data: profile, error: profileError } = await supabase
+        const { data: profile } = await supabase
           .from('profiles')
           .select('role, full_name')
           .eq('id', data.user.id)
           .single();
 
-        if (profileError) {
-          console.error('❌ Erro ao buscar perfil:', profileError);
-        }
-
-        // Navegar baseado no role
         if (profile?.role === 'admin') {
-          console.log('🔐 Usuário é admin, redirecionando...');
           navigate('/admin');
           toast({
             title: "Bem-vindo, Administrador!",
@@ -100,7 +88,6 @@ const Auth = () => {
         }
       }
     } catch (error) {
-      console.error('❌ Erro inesperado no login:', error);
       toast({
         title: "Erro inesperado",
         description: "Tente novamente em alguns instantes",
@@ -115,35 +102,43 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          username: username,
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName,
+            username: username,
+          }
         }
-      }
-    });
+      });
 
-    if (error) {
+      if (error) {
+        toast({
+          title: "Erro ao criar conta",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Conta criada com sucesso!",
+          description: "Você pode fazer login agora.",
+        });
+        setIsLogin(true);
+      }
+    } catch (error) {
       toast({
-        title: "Erro ao criar conta",
-        description: error.message,
+        title: "Erro inesperado",
+        description: "Tente novamente em alguns instantes",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Conta criada com sucesso!",
-        description: "Você pode fazer login agora.",
-      });
-      setIsLogin(true);
     }
+    
     setLoading(false);
   };
 
   const fillAdminCredentials = () => {
-    console.log('🔐 Preenchendo credenciais do admin');
     setEmail('admin@promptai.com');
     setPassword('admin123456*');
     toast({
@@ -169,7 +164,6 @@ const Auth = () => {
           </p>
         </div>
 
-        {/* Credenciais do Admin - Melhorado */}
         {isLogin && (
           <div className="bg-gray-900 border border-red-600/30 rounded-lg p-4">
             <h3 className="text-sm font-semibold text-red-400 mb-2 flex items-center">

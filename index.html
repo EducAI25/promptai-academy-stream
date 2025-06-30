@@ -16,11 +16,10 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="PromptAI Academy" />
     <meta name="msapplication-TileColor" content="#dc2626" />
-    <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Icons -->
-    <link rel="icon" href="/icon-192x192.png" type="image/png" sizes="192x192">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png" type="image/png">
+    <link rel="apple-touch-icon" href="/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png">
     <link rel="manifest" href="/manifest.json">
 
     <!-- Google Fonts -->
@@ -32,15 +31,14 @@
     <meta property="og:title" content="PromptAI Academy - Cursos Online de IA e Tecnologia" />
     <meta property="og:description" content="A melhor plataforma de cursos online para aprender IA, programação, marketing digital e tecnologia." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/icon-512x512.png" />
-    <meta property="og:url" content="https://promptai-academy.com" />
+    <meta property="og:image" content="/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png" />
     <meta property="og:site_name" content="PromptAI Academy" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="PromptAI Academy - Cursos Online de IA e Tecnologia" />
     <meta name="twitter:description" content="A melhor plataforma de cursos online para aprender IA, programação, marketing digital e tecnologia." />
-    <meta name="twitter:image" content="/icon-512x512.png" />
+    <meta name="twitter:image" content="/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png" />
 
     <style>
       html {
@@ -56,13 +54,15 @@
         min-height: 100vh;
       }
 
-      /* Prevenir problemas de scroll em iOS */
       #root {
         min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* Animação para o prompt de instalação */
+      .animate-slide-up {
+        animation: slide-up 0.3s ease-out;
+      }
+
       @keyframes slide-up {
         from {
           opacity: 0;
@@ -74,22 +74,11 @@
         }
       }
 
-      .animate-slide-up {
-        animation: slide-up 0.3s ease-out;
-      }
-
-      /* Estilos para PWA instalado */
       .pwa-installed {
         padding-top: env(safe-area-inset-top);
         padding-bottom: env(safe-area-inset-bottom);
       }
 
-      /* Corrigir problemas de z-index */
-      .fixed {
-        position: fixed !important;
-      }
-
-      /* Melhorar a experiência touch */
       button, a, [role="button"] {
         touch-action: manipulation;
       }

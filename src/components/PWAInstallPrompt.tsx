@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, Download } from 'lucide-react';
 
@@ -10,41 +11,57 @@ const PWAInstallPrompt = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const [isInstallable, setIsInstallable] = useState(false);
-  const [manualDismissed, setManualDismissed] = useState(() => {
-    return localStorage.getItem('pwa-manual-dismissed') === 'true';
-  });
+  const [manualDismissed, setManualDismissed] = useState(false);
 
   useEffect(() => {
+    // Verificar se localStorage está disponível
+    const checkLocalStorage = () => {
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          return localStorage.getItem('pwa-manual-dismissed') === 'true';
+        }
+        return false;
+      } catch (error) {
+        console.log('PWA: localStorage não disponível');
+        return false;
+      }
+    };
+
+    setManualDismissed(checkLocalStorage());
+
     const handleBeforeInstallPrompt = (e: Event) => {
-      console.log('PWA: beforeinstallprompt event fired');
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setIsInstallable(true);
       setShowPrompt(true);
     };
 
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    const isInWebAppiOS = (window.navigator as any).standalone === true;
+    // Verificar se já está instalado
+    const isStandalone = typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches;
+    const isInWebAppiOS = typeof window !== 'undefined' && (window.navigator as any).standalone === true;
+    
     if (isStandalone || isInWebAppiOS) {
-      console.log('PWA: App já está instalado');
       return;
     }
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    }
+
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      }
     };
   }, []);
 
   const handleInstall = async () => {
-    console.log('PWA: Tentando instalar...');
-    if (!deferredPrompt) {
-      console.log('PWA: Prompt não disponível');
-      return;
-    }
+    if (!deferredPrompt) return;
+
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log('PWA: Resultado da instalação:', outcome);
+      
       setShowPrompt(false);
       setDeferredPrompt(null);
       setIsInstallable(false);
@@ -55,7 +72,13 @@ const PWAInstallPrompt = () => {
 
   const handleDismiss = () => {
     setShowPrompt(false);
-    localStorage.setItem('pwa-dismissed', Date.now().toString());
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('pwa-dismissed', Date.now().toString());
+      }
+    } catch (error) {
+      console.log('PWA: Erro ao salvar dismissal');
+    }
   };
 
   const handleManualInstall = async () => {
@@ -68,14 +91,19 @@ const PWAInstallPrompt = () => {
 
   const handleManualDismiss = () => {
     setManualDismissed(true);
-    localStorage.setItem('pwa-manual-dismissed', 'true');
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.setItem('pwa-manual-dismissed', 'true');
+      }
+    } catch (error) {
+      console.log('PWA: Erro ao salvar manual dismissal');
+    }
   };
 
   return (
     <>
-      {/* Botões manuais fixos para forçar instalação ou dispensar */}
       {!manualDismissed && (
-        <div style={{ position: 'fixed', bottom: 16, left: 16, zIndex: 10000, display: 'flex', gap: 8 }}>
+        <div className="fixed bottom-4 left-4 z-50 flex gap-2">
           <button
             onClick={handleManualInstall}
             className="bg-red-600 text-white px-4 py-2 rounded shadow-lg hover:bg-red-700 transition-all"
@@ -90,7 +118,7 @@ const PWAInstallPrompt = () => {
           </button>
         </div>
       )}
-      {/* Prompt automático original */}
+      
       {(showPrompt && isInstallable) && (
         <div className="fixed bottom-4 right-4 bg-red-600 text-white rounded-lg shadow-xl p-4 max-w-sm z-50 animate-slide-up border border-red-500">
           <div className="flex items-center justify-between mb-2">
