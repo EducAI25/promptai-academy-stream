@@ -1,113 +1,123 @@
 
-import React, { useState, useEffect } from 'react';
-import { X, Download } from 'lucide-react';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
+import React, { useState } from 'react';
+import { X, Download, Settings } from 'lucide-react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
+import PWAManualInstallInstructions from './PWAManualInstallInstructions';
+import { useToast } from '../hooks/use-toast';
 
 const PWAInstallPrompt = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [isInstallable, setIsInstallable] = useState(false);
-  const [manualDismissed, setManualDismissed] = useState(false);
-
-  useEffect(() => {
-    // Verificar se localStorage está disponível
-    const checkLocalStorage = () => {
-      try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          return localStorage.getItem('pwa-manual-dismissed') === 'true';
-        }
-        return false;
-      } catch (error) {
-        console.log('PWA: localStorage não disponível');
-        return false;
-      }
-    };
-
-    setManualDismissed(checkLocalStorage());
-
-    const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setIsInstallable(true);
-      setShowPrompt(true);
-    };
-
-    // Verificar se já está instalado
-    const isStandalone = typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches;
-    const isInWebAppiOS = typeof window !== 'undefined' && (window.navigator as any).standalone === true;
-    
-    if (isStandalone || isInWebAppiOS) {
-      return;
+  const [showManualInstructions, setShowManualInstructions] = useState(false);
+  const [showAutoPrompt, setShowAutoPrompt] = useState(true);
+  const [manualDismissed, setManualDismissed] = useState(() => {
+    try {
+      return localStorage.getItem('pwa-manual-dismissed') === 'true';
+    } catch {
+      return false;
     }
+  });
 
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    }
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      }
-    };
-  }, []);
+  const { toast } = useToast();
+  const {
+    isInstallable,
+    isInstalled,
+    isSupported,
+    canInstall,
+    installError,
+    install,
+    getBrowserInstructions,
+    clearError,
+  } = usePWAInstall();
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return;
-
-    try {
-      await deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+    const success = await install();
+    
+    if (success) {
+      toast({
+        title: "✅ App Instalado!",
+        description: "O PromptAI Academy foi instalado com sucesso!",
+      });
+      setShowAutoPrompt(false);
+    } else if (installError) {
+      toast({
+        title: "❌ Erro na Instalação",
+        description: installError,
+        variant: "destructive",
+      });
       
-      setShowPrompt(false);
-      setDeferredPrompt(null);
-      setIsInstallable(false);
-    } catch (error) {
-      console.error('PWA: Erro na instalação:', error);
-    }
-  };
-
-  const handleDismiss = () => {
-    setShowPrompt(false);
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.setItem('pwa-dismissed', Date.now().toString());
+      // Se o prompt automático não funcionou, mostrar instruções manuais
+      if (installError.includes('não disponível')) {
+        setShowManualInstructions(true);
       }
-    } catch (error) {
-      console.log('PWA: Erro ao salvar dismissal');
     }
   };
 
-  const handleManualInstall = async () => {
-    if (!deferredPrompt) {
-      alert('O prompt de instalação não está disponível neste momento.');
+  const handleManualInstall = () => {
+    if (isInstalled) {
+      toast({
+        title: "✅ App Já Instalado",
+        description: "O PromptAI Academy já está instalado no seu dispositivo!",
+      });
       return;
     }
-    await handleInstall();
+
+    if (!isSupported) {
+      toast({
+        title: "❌ Não Suportado",
+        description: "Seu navegador não suporta a instalação de PWAs.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (isInstallable) {
+      handleInstall();
+    } else {
+      setShowManualInstructions(true);
+    }
   };
 
   const handleManualDismiss = () => {
     setManualDismissed(true);
     try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        localStorage.setItem('pwa-manual-dismissed', 'true');
-      }
+      localStorage.setItem('pwa-manual-dismissed', 'true');
     } catch (error) {
-      console.log('PWA: Erro ao salvar manual dismissal');
+      console.log('PWA: Erro ao salvar dismissal:', error);
     }
   };
 
+  const handleDismissAutoPrompt = () => {
+    setShowAutoPrompt(false);
+    try {
+      localStorage.setItem('pwa-dismissed', Date.now().toString());
+    } catch (error) {
+      console.log('PWA: Erro ao salvar dismissal:', error);
+    }
+  };
+
+  // Clear error when component mounts
+  React.useEffect(() => {
+    if (installError) {
+      const timer = setTimeout(() => {
+        clearError();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [installError, clearError]);
+
+  if (isInstalled) {
+    return null;
+  }
+
   return (
     <>
-      {!manualDismissed && (
+      {/* Botão fixo para instalação manual */}
+      {!manualDismissed && canInstall && (
         <div className="fixed bottom-4 left-4 z-50 flex gap-2">
           <button
             onClick={handleManualInstall}
-            className="bg-red-600 text-white px-4 py-2 rounded shadow-lg hover:bg-red-700 transition-all"
+            className="bg-red-600 text-white px-4 py-2 rounded shadow-lg hover:bg-red-700 transition-all flex items-center gap-2"
           >
+            <Download className="w-4 h-4" />
             Instalar App
           </button>
           <button
@@ -119,12 +129,13 @@ const PWAInstallPrompt = () => {
         </div>
       )}
       
-      {(showPrompt && isInstallable) && (
+      {/* Prompt automático quando o navegador permite */}
+      {(showAutoPrompt && isInstallable) && (
         <div className="fixed bottom-4 right-4 bg-red-600 text-white rounded-lg shadow-xl p-4 max-w-sm z-50 animate-slide-up border border-red-500">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-bold text-lg">📱 Instalar App</h3>
             <button 
-              onClick={handleDismiss} 
+              onClick={handleDismissAutoPrompt} 
               className="text-white/80 hover:text-white transition-colors p-1"
               aria-label="Fechar"
             >
@@ -134,14 +145,31 @@ const PWAInstallPrompt = () => {
           <p className="text-sm mb-4 text-white/90">
             Instale nossa plataforma para acesso rápido e offline!
           </p>
-          <button
-            onClick={handleInstall}
-            className="w-full bg-white text-red-600 font-bold py-3 px-4 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-lg"
-          >
-            <Download className="w-5 h-5 mr-2" />
-            Instalar Agora
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleInstall}
+              className="flex-1 bg-white text-red-600 font-bold py-2 px-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-lg text-sm"
+            >
+              <Download className="w-4 h-4 mr-1" />
+              Instalar
+            </button>
+            <button
+              onClick={() => setShowManualInstructions(true)}
+              className="bg-red-700 text-white py-2 px-3 rounded-lg hover:bg-red-800 transition-all duration-200 flex items-center justify-center"
+              title="Instruções manuais"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          </div>
         </div>
+      )}
+
+      {/* Modal de instruções manuais */}
+      {showManualInstructions && (
+        <PWAManualInstallInstructions
+          onClose={() => setShowManualInstructions(false)}
+          browserInstructions={getBrowserInstructions()}
+        />
       )}
     </>
   );

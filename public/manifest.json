@@ -13,6 +13,11 @@
   "dir": "ltr",
   "scope": "/",
   "id": "promptai-academy",
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
   "icons": [
     {
       "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
@@ -25,6 +30,21 @@
       "sizes": "512x512", 
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+      "sizes": "640x480",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Tela principal do PromptAI Academy"
     }
   ],
   "shortcuts": [
@@ -32,14 +52,30 @@
       "name": "Meus Cursos",
       "short_name": "Cursos",
       "description": "Acesse seus cursos rapidamente",
-      "url": "/painel"
+      "url": "/painel",
+      "icons": [
+        {
+          "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Todos os Cursos",
       "short_name": "Explorar",
       "description": "Explore todos os cursos disponíveis",
-      "url": "/cursos"
+      "url": "/cursos",
+      "icons": [
+        {
+          "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ],
-  "prefer_related_applications": false
+  "related_applications": [],
+  "protocol_handlers": [],
+  "file_handlers": []
 }
