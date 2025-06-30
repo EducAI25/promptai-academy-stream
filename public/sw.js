@@ -1,14 +1,9 @@
 
-const CACHE_NAME = 'promptai-academy-v2.0.0';
+const CACHE_NAME = 'promptai-academy-v3.0.0';
 const urlsToCache = [
   '/',
-  '/cursos',
-  '/docentes',
-  '/assinar',
-  '/contato',
-  '/painel',
-  '/admin',
-  '/auth',
+  '/index.html',
+  '/manifest.json',
   '/icon-192x192.png',
   '/icon-512x512.png',
   '/apple-touch-icon.png',
@@ -17,70 +12,26 @@ const urlsToCache = [
 
 // Install event
 self.addEventListener('install', (event) => {
-  console.log('Service Worker: Install event');
+  console.log('Service Worker: Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Service Worker: Caching files');
         return cache.addAll(urlsToCache);
       })
+      .then(() => {
+        console.log('Service Worker: Installation complete');
+        return self.skipWaiting();
+      })
       .catch((error) => {
         console.error('Service Worker: Cache failed', error);
-      })
-  );
-  self.skipWaiting();
-});
-
-// Fetch event
-self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
-    return;
-  }
-
-  // Skip external requests
-  if (!event.request.url.startsWith(self.location.origin)) {
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        if (response) {
-          return response;
-        }
-        
-        return fetch(event.request)
-          .then((response) => {
-            // Don't cache if not a valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-
-            return response;
-          })
-          .catch(() => {
-            // Return offline page if available
-            if (event.request.destination === 'document') {
-              return caches.match('/');
-            }
-          });
       })
   );
 });
 
 // Activate event
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker: Activate event');
+  console.log('Service Worker: Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -91,13 +42,69 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      console.log('Service Worker: Activation complete');
+      return self.clients.claim();
     })
   );
-  self.clients.claim();
 });
 
-// Push notification event
+// Fetch event - estratégia Network First para HTML, Cache First para assets
+self.addEventListener('fetch', (event) => {
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  // Skip external requests and chrome extensions
+  if (!event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
+  // Skip Supabase requests
+  if (event.request.url.includes('supabase.co')) {
+    return;
+  }
+
+  event.respondWith(
+    // Network First para documentos HTML
+    fetch(event.request)
+      .then((response) => {
+        // Check if we received a valid response
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        // Clone the response
+        const responseToCache = response.clone();
+
+        caches.open(CACHE_NAME)
+          .then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+
+        return response;
+      })
+      .catch(() => {
+        // Se falhar, tentar o cache
+        return caches.match(event.request)
+          .then((response) => {
+            if (response) {
+              return response;
+            }
+            // Se não tiver no cache e for um documento, retornar a página principal
+            if (event.request.destination === 'document') {
+              return caches.match('/');
+            }
+          });
+      })
+  );
+});
+
+// Handle push notifications
 self.addEventListener('push', (event) => {
+  console.log('Push notification received');
+  
   const options = {
     body: event.data ? event.data.text() : 'Nova notificação da PromptAI Academy!',
     icon: '/icon-192x192.png',
@@ -105,7 +112,7 @@ self.addEventListener('push', (event) => {
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 'promptai-notification'
     },
     actions: [
       {
@@ -115,8 +122,7 @@ self.addEventListener('push', (event) => {
       },
       {
         action: 'close',
-        title: 'Fechar',
-        icon: '/icon-192x192.png'
+        title: 'Fechar'
       }
     ]
   };
@@ -126,7 +132,7 @@ self.addEventListener('push', (event) => {
   );
 });
 
-// Notification click event
+// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
@@ -135,7 +141,7 @@ self.addEventListener('notificationclick', (event) => {
       clients.openWindow('/cursos')
     );
   } else if (event.action === 'close') {
-    event.notification.close();
+    // Just close the notification
   } else {
     event.waitUntil(
       clients.openWindow('/')

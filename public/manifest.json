@@ -12,6 +12,7 @@
   "lang": "pt-BR",
   "dir": "ltr",
   "scope": "/",
+  "id": "promptai-academy",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -21,28 +22,24 @@
     },
     {
       "src": "/icon-512x512.png",
-      "sizes": "512x512",
+      "sizes": "512x512", 
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "apple touch icon"
     }
   ],
   "screenshots": [
     {
-      "src": "/screenshot-wide.png",
+      "src": "/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/screenshot-narrow.png",
-      "sizes": "640x1136",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "wide",
+      "label": "PromptAI Academy - Tela Principal"
     }
   ],
   "shortcuts": [
@@ -71,5 +68,9 @@
       ]
     }
   ],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }

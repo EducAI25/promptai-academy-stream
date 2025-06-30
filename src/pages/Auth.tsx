@@ -18,35 +18,14 @@ const Auth = () => {
 
   useEffect(() => {
     // Verificar se já está logado
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        navigate('/painel');
-      }
-    });
-  }, [navigate]);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        toast({
-          title: "Erro ao fazer login",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else if (data.user) {
         // Verificar se é admin
         const { data: profile } = await supabase
           .from('profiles')
           .select('role')
-          .eq('id', data.user.id)
+          .eq('id', session.user.id)
           .single();
 
         if (profile?.role === 'admin') {
@@ -54,16 +33,77 @@ const Auth = () => {
         } else {
           navigate('/painel');
         }
+      }
+    };
+    
+    checkSession();
+  }, [navigate]);
 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      console.log('🔑 Tentando fazer login com:', email);
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password
+      });
+
+      if (error) {
+        console.error('❌ Erro no login:', error);
+        
+        // Mensagens de erro mais amigáveis
+        let errorMessage = 'Erro ao fazer login';
+        if (error.message.includes('Invalid login credentials')) {
+          errorMessage = 'Email ou senha incorretos';
+        } else if (error.message.includes('Email not confirmed')) {
+          errorMessage = 'Email não confirmado. Entre em contato com o suporte.';
+        } else if (error.message.includes('Too many requests')) {
+          errorMessage = 'Muitas tentativas. Tente novamente em alguns minutos.';
+        }
+        
         toast({
-          title: "Login realizado com sucesso!",
-          description: "Redirecionando...",
+          title: "Erro ao fazer login",
+          description: errorMessage,
+          variant: "destructive",
         });
+      } else if (data.user) {
+        console.log('✅ Login realizado com sucesso');
+        
+        // Buscar perfil do usuário
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('role, full_name')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profileError) {
+          console.error('❌ Erro ao buscar perfil:', profileError);
+        }
+
+        // Navegar baseado no role
+        if (profile?.role === 'admin') {
+          console.log('🔐 Usuário é admin, redirecionando...');
+          navigate('/admin');
+          toast({
+            title: "Bem-vindo, Administrador!",
+            description: "Redirecionando para o painel administrativo...",
+          });
+        } else {
+          navigate('/painel');
+          toast({
+            title: "Login realizado com sucesso!",
+            description: `Bem-vindo${profile?.full_name ? ', ' + profile.full_name : ''}!`,
+          });
+        }
       }
     } catch (error) {
+      console.error('❌ Erro inesperado no login:', error);
       toast({
         title: "Erro inesperado",
-        description: "Tente novamente",
+        description: "Tente novamente em alguns instantes",
         variant: "destructive",
       });
     }
@@ -103,8 +143,13 @@ const Auth = () => {
   };
 
   const fillAdminCredentials = () => {
+    console.log('🔐 Preenchendo credenciais do admin');
     setEmail('admin@promptai.com');
     setPassword('admin123456*');
+    toast({
+      title: "Credenciais preenchidas",
+      description: "Clique em 'Entrar' para fazer login como administrador",
+    });
   };
 
   return (
@@ -124,19 +169,25 @@ const Auth = () => {
           </p>
         </div>
 
-        {/* Credenciais do Admin */}
+        {/* Credenciais do Admin - Melhorado */}
         {isLogin && (
-          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
-            <h3 className="text-sm font-semibold text-white mb-2">🔐 Acesso Administrativo</h3>
+          <div className="bg-gray-900 border border-red-600/30 rounded-lg p-4">
+            <h3 className="text-sm font-semibold text-red-400 mb-2 flex items-center">
+              🔐 Acesso Administrativo
+            </h3>
             <p className="text-xs text-gray-400 mb-3">
-              Clique para preencher as credenciais do administrador:
+              Use as credenciais do administrador para acessar o painel completo:
             </p>
+            <div className="text-xs text-gray-300 mb-3 bg-gray-800 p-2 rounded font-mono">
+              <div>Email: admin@promptai.com</div>
+              <div>Senha: admin123456*</div>
+            </div>
             <button
               type="button"
               onClick={fillAdminCredentials}
-              className="w-full bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-2 rounded transition-colors"
+              className="w-full bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-2 rounded transition-colors font-medium"
             >
-              Usar Credenciais Admin
+              Preencher Credenciais Admin
             </button>
           </div>
         )}
