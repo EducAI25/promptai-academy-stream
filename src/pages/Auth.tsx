@@ -98,6 +98,22 @@ const Auth = () => {
           </p>
         </div>
 
+        {/* Informações do Admin */}
+        <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+          <h3 className="text-sm font-semibold text-white mb-2">🔐 Acesso Administrativo</h3>
+          <p className="text-xs text-gray-400 mb-2">
+            Para testar o painel administrativo, use:
+          </p>
+          <div className="space-y-1 text-xs">
+            <p className="text-gray-300">
+              <strong>Email:</strong> admin@promptai.com
+            </p>
+            <p className="text-gray-300">
+              <strong>Senha:</strong> admin123456*
+            </p>
+          </div>
+        </div>
+
         <form onSubmit={isLogin ? handleLogin : handleSignUp} className="space-y-6">
           {!isLogin && (
             <>
