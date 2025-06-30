@@ -1,7 +1,7 @@
 
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="512" height="512" rx="64" fill="#000000"/>
-  <rect x="32" y="32" width="448" height="448" rx="32" fill="#dc2626"/>
+  <rect x="32" y="32" width="448" height="448" rx="32" fill="#1e3a8a"/>
   
   <!-- AI Brain Icon -->
   <path d="M256 128C198.562 128 152 174.562 152 232C152 289.438 198.562 336 256 336C313.438 336 360 289.438 360 232C360 174.562 313.438 128 256 128Z" fill="white"/>

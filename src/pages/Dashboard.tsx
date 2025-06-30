@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -70,13 +71,13 @@ const Dashboard = () => {
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Welcome Section */}
-          <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-8 mb-8">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 mb-8">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-3xl font-bold text-white mb-2">
                   Olá, {profile?.full_name || user?.email?.split('@')[0]}! 👋
                 </h1>
-                <p className="text-red-100">
+                <p className="text-blue-100">
                   Continue sua jornada de aprendizado. Você está indo muito bem!
                 </p>
               </div>
@@ -98,7 +99,7 @@ const Dashboard = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center px-4 py-2 rounded-md transition-colors ${
                     activeTab === tab.id
-                      ? 'bg-red-600 text-white'
+                      ? 'bg-blue-600 text-white'
                       : 'text-gray-300 hover:text-white hover:bg-gray-800'
                   }`}
                 >
@@ -144,7 +145,7 @@ const Dashboard = () => {
                 <div className="bg-gray-900 rounded-lg p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-white">Sequência</h3>
-                    <Target className="w-6 h-6 text-red-400" />
+                    <Target className="w-6 h-6 text-blue-400" />
                   </div>
                   <div className="text-3xl font-bold text-white mb-2">7 dias</div>
                   <p className="text-gray-400 text-sm">Recorde: 15 dias</p>
@@ -192,7 +193,7 @@ const Dashboard = () => {
               {/* Placeholder courses */}
               {[1, 2, 3].map((i) => (
                 <div key={i} className="bg-gray-900 rounded-lg overflow-hidden">
-                  <div className="h-48 bg-gradient-to-r from-red-600 to-red-700"></div>
+                  <div className="h-48 bg-gradient-to-r from-blue-600 to-blue-700"></div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-white mb-2">Curso de Exemplo {i}</h3>
                     <p className="text-gray-400 text-sm mb-4">Descrição do curso aqui...</p>
@@ -203,12 +204,12 @@ const Dashboard = () => {
                       </div>
                       <div className="w-full bg-gray-700 rounded-full h-2">
                         <div 
-                          className="bg-red-600 h-2 rounded-full" 
+                          className="bg-blue-600 h-2 rounded-full" 
                           style={{ width: `${i * 25}%` }}
                         ></div>
                       </div>
                     </div>
-                    <button className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition-colors">
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors">
                       Continuar
                     </button>
                   </div>
@@ -230,7 +231,7 @@ const Dashboard = () => {
                     <input
                       type="text"
                       value={profile?.full_name || ''}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   
@@ -253,11 +254,11 @@ const Dashboard = () => {
                     <input
                       type="text"
                       value={profile?.username || ''}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   
-                  <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-colors">
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors">
                     Salvar Alterações
                   </button>
                 </div>

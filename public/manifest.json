@@ -20,13 +20,13 @@
   },
   "icons": [
     {
-      "src": "/lovable-uploads/28d47ce5-4a1e-4d9e-9bc8-b7d9b1e8a2c5.png",
+      "src": "/lovable-uploads/06aa21e1-0631-4ae0-95b7-c7a512eebc5c.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/lovable-uploads/f0a6b8c1-2d4e-4c3f-8e9a-b5c7d8e9f0a1.png",
+      "src": "/lovable-uploads/98bb0007-7c9a-412b-a95b-c07a0c9af9a0.png",
       "sizes": "512x512", 
       "type": "image/png",
       "purpose": "any maskable"
@@ -40,7 +40,7 @@
   ],
   "screenshots": [
     {
-      "src": "/lovable-uploads/f0a6b8c1-2d4e-4c3f-8e9a-b5c7d8e9f0a1.png",
+      "src": "/lovable-uploads/98bb0007-7c9a-412b-a95b-c07a0c9af9a0.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
@@ -55,7 +55,7 @@
       "url": "/painel",
       "icons": [
         {
-          "src": "/lovable-uploads/28d47ce5-4a1e-4d9e-9bc8-b7d9b1e8a2c5.png",
+          "src": "/lovable-uploads/06aa21e1-0631-4ae0-95b7-c7a512eebc5c.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -68,7 +68,7 @@
       "url": "/cursos",
       "icons": [
         {
-          "src": "/lovable-uploads/28d47ce5-4a1e-4d9e-9bc8-b7d9b1e8a2c5.png",
+          "src": "/lovable-uploads/06aa21e1-0631-4ae0-95b7-c7a512eebc5c.png",
           "sizes": "96x96",
           "type": "image/png"
         }

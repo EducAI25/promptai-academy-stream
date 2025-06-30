@@ -73,7 +73,7 @@ const MyLearning = () => {
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-gray-900 p-4 rounded-lg text-center">
-              <BookOpen className="w-8 h-8 text-red-500 mx-auto mb-2" />
+              <BookOpen className="w-8 h-8 text-blue-500 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">{stats.totalCourses}</div>
               <div className="text-gray-400 text-sm">Cursos Ativos</div>
             </div>
@@ -106,7 +106,7 @@ const MyLearning = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 font-semibold transition-colors ${
                   activeTab === tab.id
-                    ? 'text-white border-b-2 border-red-600'
+                    ? 'text-white border-b-2 border-blue-600'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -137,7 +137,7 @@ const MyLearning = () => {
                       </div>
                       <div className="w-full bg-gray-700 rounded-full h-2">
                         <div 
-                          className="bg-red-600 h-2 rounded-full transition-all duration-300"
+                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${course.progress}%` }}
                         ></div>
                       </div>
@@ -148,7 +148,7 @@ const MyLearning = () => {
                         <Clock className="w-4 h-4 mr-1" />
                         <span>{course.timeSpent}</span>
                       </div>
-                      <button className="flex items-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+                      <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
                         <Play className="w-4 h-4 mr-2" />
                         Continuar
                       </button>
