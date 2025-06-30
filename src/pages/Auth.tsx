@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -152,7 +151,7 @@ const Auth = () => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <img 
-            src="/lovable-uploads/96a1b135-d793-440c-9f5f-bcace76b5cb1.png" 
+            src="/lovable-uploads/28d47ce5-4a1e-4d9e-9bc8-b7d9b1e8a2c5.png" 
             alt="PromptAI Academy" 
             className="h-12 w-auto mx-auto mb-4"
           />
@@ -165,8 +164,8 @@ const Auth = () => {
         </div>
 
         {isLogin && (
-          <div className="bg-gray-900 border border-red-600/30 rounded-lg p-4">
-            <h3 className="text-sm font-semibold text-red-400 mb-2 flex items-center">
+          <div className="bg-gray-900 border border-blue-600/30 rounded-lg p-4">
+            <h3 className="text-sm font-semibold text-blue-400 mb-2 flex items-center">
               🔐 Acesso Administrativo
             </h3>
             <p className="text-xs text-gray-400 mb-3">
@@ -179,7 +178,7 @@ const Auth = () => {
             <button
               type="button"
               onClick={fillAdminCredentials}
-              className="w-full bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-2 rounded transition-colors font-medium"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-2 rounded transition-colors font-medium"
             >
               Preencher Credenciais Admin
             </button>
@@ -199,7 +198,7 @@ const Auth = () => {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Seu nome completo"
                 />
               </div>
@@ -213,7 +212,7 @@ const Auth = () => {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Escolha um nome de usuário"
                 />
               </div>
@@ -230,7 +229,7 @@ const Auth = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="seu@email.com"
             />
           </div>
@@ -246,7 +245,7 @@ const Auth = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent pr-10"
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
                 placeholder="Sua senha"
               />
               <button
@@ -262,7 +261,7 @@ const Auth = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Processando...' : (isLogin ? 'Entrar' : 'Criar conta')}
           </button>
@@ -271,7 +270,7 @@ const Auth = () => {
         <div className="text-center">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-red-400 hover:text-red-300 text-sm"
+            className="text-blue-400 hover:text-blue-300 text-sm"
           >
             {isLogin ? 'Não tem uma conta? Cadastre-se' : 'Já tem uma conta? Faça login'}
           </button>

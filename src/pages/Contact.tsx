@@ -64,7 +64,7 @@ const Contact = () => {
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-white mb-4">
-            Fale <span className="text-red-500">Conosco</span>
+            Fale <span className="text-blue-500">Conosco</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Estamos aqui para ajudar! Entre em contato conosco e tire todas as suas dúvidas 
@@ -94,7 +94,7 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Seu nome"
                     />
                   </div>
@@ -109,7 +109,7 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="seu@email.com"
                     />
                   </div>
@@ -125,7 +125,7 @@ const Contact = () => {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="">Selecione um assunto</option>
                     <option value="Dúvidas sobre cursos">Dúvidas sobre cursos</option>
@@ -147,7 +147,7 @@ const Contact = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                     placeholder="Descreva sua dúvida ou mensagem aqui..."
                   />
                 </div>
@@ -155,7 +155,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {loading ? (
                     'Enviando...'
@@ -181,7 +181,7 @@ const Contact = () => {
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -192,7 +192,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -203,7 +203,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -216,7 +216,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div>
@@ -234,16 +234,16 @@ const Contact = () => {
               <div className="bg-gray-900 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-white mb-4">Dúvidas Frequentes</h3>
                 <div className="space-y-3">
-                  <a href="#" className="block text-red-400 hover:text-red-300 transition-colors">
+                  <a href="#" className="block text-blue-400 hover:text-blue-300 transition-colors">
                     Como acessar meus cursos?
                   </a>
-                  <a href="#" className="block text-red-400 hover:text-red-300 transition-colors">
+                  <a href="#" className="block text-blue-400 hover:text-blue-300 transition-colors">
                     Como funciona a certificação?
                   </a>
-                  <a href="#" className="block text-red-400 hover:text-red-300 transition-colors">
+                  <a href="#" className="block text-blue-400 hover:text-blue-300 transition-colors">
                     Posso cancelar minha assinatura?
                   </a>
-                  <a href="#" className="block text-red-400 hover:text-red-300 transition-colors">
+                  <a href="#" className="block text-blue-400 hover:text-blue-300 transition-colors">
                     Problemas técnicos comuns
                   </a>
                 </div>

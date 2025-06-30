@@ -76,7 +76,7 @@ const Instructors = () => {
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-white mb-4">
-            Nossos <span className="text-red-500">Docentes Convidados</span>
+            Nossos <span className="text-blue-500">Docentes Convidados</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Aprenda com os melhores profissionais da área. Especialistas com vasta experiência 
@@ -118,7 +118,7 @@ const Instructors = () => {
                           {instructor.expertise.map((skill, index) => (
                             <span
                               key={index}
-                              className="bg-red-600/20 text-red-400 px-2 py-1 rounded text-xs"
+                              className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs"
                             >
                               {skill}
                             </span>
@@ -169,7 +169,7 @@ const Instructors = () => {
                       {instructor.expertise.slice(0, 3).map((skill, index) => (
                         <span
                           key={index}
-                          className="bg-red-600/20 text-red-400 px-2 py-1 rounded text-xs"
+                          className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs"
                         >
                           {skill}
                         </span>

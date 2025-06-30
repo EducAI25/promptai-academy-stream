@@ -116,7 +116,7 @@ const Subscribe = () => {
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-white mb-4">
-            Escolha seu <span className="text-red-500">Plano</span>
+            Escolha seu <span className="text-blue-500">Plano</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Acelere seu aprendizado com acesso completo aos melhores cursos de IA, 
@@ -133,11 +133,11 @@ const Subscribe = () => {
               <div 
                 key={plan.id} 
                 className={`bg-gray-900 rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300 ${
-                  index === 1 ? 'ring-2 ring-red-500 relative' : ''
+                  index === 1 ? 'ring-2 ring-blue-500 relative' : ''
                 }`}
               >
                 {index === 1 && (
-                  <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     Mais Popular
                   </div>
                 )}

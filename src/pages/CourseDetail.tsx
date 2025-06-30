@@ -29,7 +29,7 @@ const CourseDetail = () => {
           <h1 className="text-2xl font-bold text-white mb-4">Curso não encontrado</h1>
           <button 
             onClick={() => navigate('/cursos')}
-            className="px-6 py-3 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+            className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
           >
             Voltar aos Cursos
           </button>
@@ -92,7 +92,7 @@ const CourseDetail = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-2xl">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="px-3 py-1 bg-red-600 text-white text-sm font-bold rounded">{course.category}</span>
+                  <span className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded">{course.category}</span>
                   <span className="px-3 py-1 bg-gray-800 text-white text-sm rounded">{course.level}</span>
                 </div>
                 
@@ -143,7 +143,7 @@ const CourseDetail = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-6 py-3 font-semibold transition-colors ${
                   activeTab === tab.id
-                    ? 'text-white border-b-2 border-red-600'
+                    ? 'text-white border-b-2 border-blue-600'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -189,7 +189,7 @@ const CourseDetail = () => {
                   <div className="text-green-500 font-semibold">40% de desconto</div>
                 </div>
                 
-                <button className="w-full py-3 bg-red-600 text-white font-bold rounded hover:bg-red-700 transition-colors mb-4">
+                <button className="w-full py-3 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors mb-4">
                   Comprar Curso
                 </button>
                 
@@ -264,7 +264,7 @@ const CourseDetail = () => {
                 />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-2">Dr. Carlos Silva</h2>
-                  <p className="text-red-400 font-semibold mb-2">Especialista em IA e Machine Learning</p>
+                  <p className="text-blue-400 font-semibold mb-2">Especialista em IA e Machine Learning</p>
                   <p className="text-gray-300 mb-4">
                     PhD em Ciência da Computação com mais de 15 anos de experiência em IA. 
                     Trabalhou em grandes empresas tech e atualmente lidera pesquisas em Deep Learning.

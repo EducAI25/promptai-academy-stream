@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
@@ -89,7 +90,7 @@ const Admin = () => {
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center px-4 py-3 rounded-lg transition-colors ${
                       activeTab === tab.id
-                        ? 'bg-red-600 text-white'
+                        ? 'bg-blue-600 text-white'
                         : 'text-gray-300 hover:text-white hover:bg-gray-800'
                     }`}
                   >
@@ -140,7 +141,7 @@ const Admin = () => {
                 <div className="bg-gray-900 rounded-lg p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-white">Receita</h3>
-                    <BarChart3 className="w-6 h-6 text-red-400" />
+                    <BarChart3 className="w-6 h-6 text-blue-400" />
                   </div>
                   <div className="text-3xl font-bold text-white">R$ 45.2K</div>
                   <p className="text-gray-400 text-sm">+8% este mês</p>
@@ -181,7 +182,7 @@ const Admin = () => {
             <div>
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-3xl font-bold text-white">Gerenciar Usuários</h2>
-                <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center">
                   <Plus className="w-4 h-4 mr-2" />
                   Novo Usuário
                 </button>
@@ -194,7 +195,7 @@ const Admin = () => {
                   <input
                     type="text"
                     placeholder="Buscar usuários..."
-                    className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg border border-gray-600 focus:border-red-500 focus:outline-none"
+                    className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
                   />
                 </div>
                 <button className="bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-600 hover:bg-gray-700 flex items-center">
@@ -233,7 +234,7 @@ const Admin = () => {
                           <button className="text-yellow-400 hover:text-yellow-300">
                             <Edit className="w-4 h-4" />
                           </button>
-                          <button className="text-red-400 hover:text-red-300">
+                          <button className="text-gray-400 hover:text-gray-300">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -109,9 +108,9 @@ const Cart = () => {
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center mb-8">
-            <ShoppingBag className="w-8 h-8 text-red-500 mr-3" />
+            <ShoppingBag className="w-8 h-8 text-blue-500 mr-3" />
             <h1 className="text-4xl font-bold text-white">Meu Carrinho</h1>
-            <span className="ml-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm">
+            <span className="ml-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
               {cartItems.length} {cartItems.length === 1 ? 'item' : 'itens'}
             </span>
           </div>
@@ -123,7 +122,7 @@ const Cart = () => {
               <p className="text-gray-400 mb-8">Explore nossos cursos e adicione ao carrinho</p>
               <Link 
                 to="/cursos"
-                className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg transition-colors inline-flex items-center"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg transition-colors inline-flex items-center"
               >
                 Ver Cursos
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -157,7 +156,7 @@ const Cart = () => {
                       <div className="text-2xl font-bold text-white mb-2">R$ 97,00</div>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-red-400 hover:text-red-300 transition-colors flex items-center"
+                        className="text-blue-400 hover:text-blue-300 transition-colors flex items-center"
                       >
                         <Trash2 className="w-4 h-4 mr-1" />
                         Remover
@@ -188,7 +187,7 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors mb-4">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors mb-4">
                   Finalizar Compra
                 </button>
 
@@ -204,7 +203,7 @@ const Cart = () => {
                     <input
                       type="text"
                       placeholder="Inserir código"
-                      className="flex-1 bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="flex-1 bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition-colors">
                       Aplicar
