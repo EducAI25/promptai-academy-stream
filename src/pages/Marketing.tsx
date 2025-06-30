@@ -28,7 +28,7 @@ const Marketing = () => {
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold text-white mb-4">
-            Marketing <span className="text-red-500">Digital</span>
+            Marketing <span className="text-blue-500">Digital</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Estratégias e táticas para crescer seu negócio no mundo digital. 
@@ -42,7 +42,7 @@ const Marketing = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             <div className="text-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Growth Marketing</h3>
@@ -50,7 +50,7 @@ const Marketing = () => {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Ads & Performance</h3>
@@ -58,7 +58,7 @@ const Marketing = () => {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BarChart className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Analytics</h3>

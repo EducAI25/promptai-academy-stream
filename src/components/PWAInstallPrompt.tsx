@@ -115,7 +115,7 @@ const PWAInstallPrompt = () => {
         <div className="fixed bottom-4 left-4 z-50 flex gap-2">
           <button
             onClick={handleManualInstall}
-            className="bg-red-600 text-white px-4 py-2 rounded shadow-lg hover:bg-red-700 transition-all flex items-center gap-2"
+            className="bg-blue-600 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition-all flex items-center gap-2"
           >
             <Download className="w-4 h-4" />
             Instalar App
@@ -131,7 +131,7 @@ const PWAInstallPrompt = () => {
       
       {/* Prompt automático quando o navegador permite */}
       {(showAutoPrompt && isInstallable) && (
-        <div className="fixed bottom-4 right-4 bg-red-600 text-white rounded-lg shadow-xl p-4 max-w-sm z-50 animate-slide-up border border-red-500">
+        <div className="fixed bottom-4 right-4 bg-blue-600 text-white rounded-lg shadow-xl p-4 max-w-sm z-50 animate-slide-up border border-blue-500">
           <div className="flex items-center justify-between mb-2">
             <h3 className="font-bold text-lg">📱 Instalar App</h3>
             <button 
@@ -148,14 +148,14 @@ const PWAInstallPrompt = () => {
           <div className="flex gap-2">
             <button
               onClick={handleInstall}
-              className="flex-1 bg-white text-red-600 font-bold py-2 px-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-lg text-sm"
+              className="flex-1 bg-white text-blue-600 font-bold py-2 px-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-all duration-200 shadow-lg text-sm"
             >
               <Download className="w-4 h-4 mr-1" />
               Instalar
             </button>
             <button
               onClick={() => setShowManualInstructions(true)}
-              className="bg-red-700 text-white py-2 px-3 rounded-lg hover:bg-red-800 transition-all duration-200 flex items-center justify-center"
+              className="bg-blue-700 text-white py-2 px-3 rounded-lg hover:bg-blue-800 transition-all duration-200 flex items-center justify-center"
               title="Instruções manuais"
             >
               <Settings className="w-4 h-4" />

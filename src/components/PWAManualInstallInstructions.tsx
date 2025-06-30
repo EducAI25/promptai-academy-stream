@@ -29,12 +29,12 @@ const PWAManualInstallInstructions: React.FC<PWAManualInstallInstructionsProps> 
         </div>
 
         <div className="space-y-4">
-          <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
             <div className="flex items-center gap-2 mb-2">
-              <Smartphone className="w-5 h-5 text-red-600" />
-              <span className="font-semibold text-red-800">{browserInstructions.browser}</span>
+              <Smartphone className="w-5 h-5 text-blue-600" />
+              <span className="font-semibold text-blue-800">{browserInstructions.browser}</span>
             </div>
-            <p className="text-sm text-red-700">{browserInstructions.instructions}</p>
+            <p className="text-sm text-blue-700">{browserInstructions.instructions}</p>
           </div>
 
           <div className="space-y-3">
@@ -45,15 +45,15 @@ const PWAManualInstallInstructions: React.FC<PWAManualInstallInstructionsProps> 
             
             <div className="space-y-2 text-sm text-gray-700">
               <div className="flex items-start gap-2">
-                <span className="text-red-600 font-bold">1.</span>
+                <span className="text-blue-600 font-bold">1.</span>
                 <span>Procure pelo ícone de "Instalar" na barra de endereços do navegador</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-red-600 font-bold">2.</span>
+                <span className="text-blue-600 font-bold">2.</span>
                 <span>Ou abra o menu do navegador (⋮ ou ⋯) e procure por "Instalar aplicativo"</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-red-600 font-bold">3.</span>
+                <span className="text-blue-600 font-bold">3.</span>
                 <span>No celular, procure por "Adicionar à tela inicial" no menu de compartilhamento</span>
               </div>
             </div>
@@ -65,7 +65,7 @@ const PWAManualInstallInstructions: React.FC<PWAManualInstallInstructionsProps> 
             </p>
             <button
               onClick={onClose}
-              className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Entendi
             </button>

@@ -51,7 +51,7 @@ const Courses = () => {
                 placeholder="Buscar cursos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg border border-gray-700 focus:border-red-500 focus:outline-none"
+                className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:outline-none"
               />
             </div>
             
@@ -60,7 +60,7 @@ const Courses = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="bg-gray-800 text-white pl-10 pr-8 py-3 rounded-lg border border-gray-700 focus:border-red-500 focus:outline-none appearance-none cursor-pointer"
+                className="bg-gray-800 text-white pl-10 pr-8 py-3 rounded-lg border border-gray-700 focus:border-blue-500 focus:outline-none appearance-none cursor-pointer"
               >
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>

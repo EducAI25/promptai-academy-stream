@@ -105,7 +105,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, title, onClose }) =
             onClick={handleProgressClick}
           >
             <div 
-              className="h-full bg-red-600 rounded-full transition-all duration-100"
+              className="h-full bg-blue-600 rounded-full transition-all duration-100"
               style={{ width: `${(currentTime / duration) * 100}%` }}
             ></div>
           </div>
@@ -113,19 +113,19 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, title, onClose }) =
           {/* Control Buttons */}
           <div className="flex items-center justify-between text-white">
             <div className="flex items-center space-x-4">
-              <button onClick={togglePlay} className="hover:text-red-400 transition-colors">
+              <button onClick={togglePlay} className="hover:text-blue-400 transition-colors">
                 {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
               </button>
               
-              <button onClick={() => skipTime(-10)} className="hover:text-red-400 transition-colors">
+              <button onClick={() => skipTime(-10)} className="hover:text-blue-400 transition-colors">
                 <SkipBack className="w-5 h-5" />
               </button>
               
-              <button onClick={() => skipTime(10)} className="hover:text-red-400 transition-colors">
+              <button onClick={() => skipTime(10)} className="hover:text-blue-400 transition-colors">
                 <SkipForward className="w-5 h-5" />
               </button>
 
-              <button onClick={toggleMute} className="hover:text-red-400 transition-colors">
+              <button onClick={toggleMute} className="hover:text-blue-400 transition-colors">
                 {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
               </button>
 
@@ -135,11 +135,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, title, onClose }) =
             </div>
 
             <div className="flex items-center space-x-2">
-              <button className="hover:text-red-400 transition-colors">
+              <button className="hover:text-blue-400 transition-colors">
                 <Settings className="w-5 h-5" />
               </button>
               
-              <button className="hover:text-red-400 transition-colors">
+              <button className="hover:text-blue-400 transition-colors">
                 <Maximize className="w-5 h-5" />
               </button>
             </div>

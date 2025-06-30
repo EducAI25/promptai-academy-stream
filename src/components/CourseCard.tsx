@@ -71,7 +71,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
       {/* Course Info */}
       <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
         <div className="flex items-center gap-2 mb-2">
-          <span className="px-2 py-1 bg-red-600 text-xs font-bold rounded">{category}</span>
+          <span className="px-2 py-1 bg-blue-600 text-xs font-bold rounded">{category}</span>
           <span className="px-2 py-1 bg-gray-800 text-xs rounded">{level}</span>
         </div>
         
@@ -97,7 +97,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
       {/* Expanded Info (on hover) */}
       {isHovered && (
-        <div className="absolute top-full left-0 right-0 bg-gray-900 p-4 rounded-b-lg shadow-2xl border-t-2 border-red-600 z-30 transition-all duration-300">
+        <div className="absolute top-full left-0 right-0 bg-gray-900 p-4 rounded-b-lg shadow-2xl border-t-2 border-blue-600 z-30 transition-all duration-300">
           <p className="text-gray-300 text-sm mb-3 line-clamp-2">{description}</p>
           
           <div className="flex gap-2">

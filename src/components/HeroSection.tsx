@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="max-w-2xl">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             Domine a
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
               Inteligência Artificial
             </span>
           </h1>

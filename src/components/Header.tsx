@@ -154,7 +154,7 @@ const Header = () => {
             <Link to="/carrinho" className="relative text-white hover:text-gray-300 transition-colors">
               <ShoppingCart className="w-5 h-5" />
               {cartItemsCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemsCount}
                 </span>
               )}
@@ -165,7 +165,7 @@ const Header = () => {
               <div className="flex items-center space-x-3">
                 <Link 
                   to="/painel"
-                  className="hidden md:block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
+                  className="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
                 >
                   Painel
                 </Link>
@@ -176,14 +176,14 @@ const Header = () => {
                 >
                   <LogOut className="w-5 h-5" />
                 </button>
-                <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-red-700 rounded flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded flex items-center justify-center">
                   <User className="w-4 h-4 text-white" />
                 </div>
               </div>
             ) : (
               <Link 
                 to="/auth"
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
               >
                 Login
               </Link>
