@@ -29,24 +29,45 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
+      if (error) {
+        toast({
+          title: "Erro ao fazer login",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else if (data.user) {
+        // Verificar se é admin
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profile?.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/painel');
+        }
+
+        toast({
+          title: "Login realizado com sucesso!",
+          description: "Redirecionando...",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Erro ao fazer login",
-        description: error.message,
+        title: "Erro inesperado",
+        description: "Tente novamente",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Login realizado com sucesso!",
-        description: "Redirecionando para o painel...",
-      });
-      navigate('/painel');
     }
+    
     setLoading(false);
   };
 
@@ -58,7 +79,6 @@ const Auth = () => {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/painel`,
         data: {
           full_name: fullName,
           username: username,
@@ -75,10 +95,16 @@ const Auth = () => {
     } else {
       toast({
         title: "Conta criada com sucesso!",
-        description: "Verifique seu email para confirmar a conta.",
+        description: "Você pode fazer login agora.",
       });
+      setIsLogin(true);
     }
     setLoading(false);
+  };
+
+  const fillAdminCredentials = () => {
+    setEmail('admin@promptai.com');
+    setPassword('admin123456*');
   };
 
   return (
@@ -98,21 +124,22 @@ const Auth = () => {
           </p>
         </div>
 
-        {/* Informações do Admin */}
-        <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
-          <h3 className="text-sm font-semibold text-white mb-2">🔐 Acesso Administrativo</h3>
-          <p className="text-xs text-gray-400 mb-2">
-            Para testar o painel administrativo, use:
-          </p>
-          <div className="space-y-1 text-xs">
-            <p className="text-gray-300">
-              <strong>Email:</strong> admin@promptai.com
+        {/* Credenciais do Admin */}
+        {isLogin && (
+          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+            <h3 className="text-sm font-semibold text-white mb-2">🔐 Acesso Administrativo</h3>
+            <p className="text-xs text-gray-400 mb-3">
+              Clique para preencher as credenciais do administrador:
             </p>
-            <p className="text-gray-300">
-              <strong>Senha:</strong> admin123456*
-            </p>
+            <button
+              type="button"
+              onClick={fillAdminCredentials}
+              className="w-full bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-2 rounded transition-colors"
+            >
+              Usar Credenciais Admin
+            </button>
           </div>
-        </div>
+        )}
 
         <form onSubmit={isLogin ? handleLogin : handleSignUp} className="space-y-6">
           {!isLogin && (
