@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-black text-gray-400 py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <img 
@@ -20,27 +20,51 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Cursos */}
           <div>
-            <h3 className="text-white font-bold mb-4">Links Rápidos</h3>
+            <h3 className="text-white font-bold mb-4">Cursos</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-white transition-colors">Sobre Nós</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cursos</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Certificados</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contato</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Inteligência Artificial</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Programação</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Marketing Digital</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Data Science</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Design UX/UI</a></li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Empresa */}
           <div>
-            <h3 className="text-white font-bold mb-4">Suporte</h3>
+            <h3 className="text-white font-bold mb-4">Empresa</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="hover:text-white transition-colors">Sobre Nós</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Instrutores</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Carreiras</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Imprensa</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+            </ul>
+          </div>
+
+          {/* Recursos */}
+          <div>
+            <h3 className="text-white font-bold mb-4">Recursos</h3>
             <ul className="space-y-2">
               <li><a href="#" className="hover:text-white transition-colors">Central de Ajuda</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Downloads</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Certificados</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Afiliados</a></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="text-white font-bold mb-4">Legal</h3>
+            <ul className="space-y-2">
               <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Termos de Uso</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Suporte Técnico</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Cookies</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Contato</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">LGPD</a></li>
             </ul>
           </div>
         </div>

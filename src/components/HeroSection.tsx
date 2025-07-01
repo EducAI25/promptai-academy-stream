@@ -1,8 +1,18 @@
 
-import React from 'react';
-import { Play, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Play, Info, ChevronRight } from 'lucide-react';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 const HeroSection = () => {
+  const [email, setEmail] = useState('');
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Email capturado:', email);
+    setEmail('');
+  };
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -31,10 +41,29 @@ const HeroSection = () => {
             Aprenda com os melhores especialistas e transforme sua carreira.
           </p>
 
+          {/* Email Capture Form */}
+          <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 mb-6 max-w-lg">
+            <Input
+              type="email"
+              placeholder="Digite seu melhor email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 bg-background/80 border-border text-white placeholder:text-muted-foreground h-12 text-base"
+              required
+            />
+            <Button 
+              type="submit"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 px-8 whitespace-nowrap"
+            >
+              Começar Agora
+              <ChevronRight className="w-5 h-5 ml-2" />
+            </Button>
+          </form>
+
           <div className="flex flex-col sm:flex-row gap-4">
             <button className="flex items-center justify-center px-8 py-4 bg-white text-black font-bold rounded hover:bg-gray-200 transition-all duration-300 transform hover:scale-105">
               <Play className="w-6 h-6 mr-3 fill-black" />
-              Começar Agora
+              Assistir Demo
             </button>
             
             <button className="flex items-center justify-center px-8 py-4 bg-gray-600/70 text-white font-bold rounded hover:bg-gray-600/90 transition-all duration-300 backdrop-blur-sm">
@@ -42,6 +71,10 @@ const HeroSection = () => {
               Mais Informações
             </button>
           </div>
+
+          <p className="text-gray-400 text-sm mt-4">
+            Teste grátis por 7 dias. Cancele quando quiser.
+          </p>
         </div>
       </div>
 
