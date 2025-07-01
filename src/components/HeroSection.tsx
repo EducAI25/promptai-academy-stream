@@ -19,7 +19,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content - Reorganized layout */}
-      <div className="relative z-10 container mx-auto px-4">
+      <div className="relative z-10 container mx-auto px-0">
         <div className="max-w-4xl text-center px-[20px] py-[20px] mx-[50px] my-[50px]">
           <h1 className="text-4xl lg:text-7xl font-bold text-white mb-6 leading-tight mx-[10px] my-[10px] px-[10px] py-[10px] md:text-6xl">
             Domine a
