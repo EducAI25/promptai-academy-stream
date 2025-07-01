@@ -1,27 +1,19 @@
-
 import React, { useState } from 'react';
 import { Play, Info, ChevronRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-
 const HeroSection = () => {
   const [email, setEmail] = useState('');
-
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Email capturado:', email);
     setEmail('');
   };
-
-  return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+  return <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image - Updated to subtle code background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
-        }}
-      >
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{
+      backgroundImage: `url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`
+    }}>
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/50"></div>
       </div>
@@ -29,7 +21,7 @@ const HeroSection = () => {
       {/* Content - Reorganized layout */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl lg:text-7xl font-bold text-white mb-6 leading-tight mx-[10px] my-[10px] px-[10px] py-[10px] md:text-6xl">
             Domine a
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               Inteligência Artificial
@@ -44,18 +36,8 @@ const HeroSection = () => {
           {/* Email Capture Form - More integrated */}
           <div className="mb-8">
             <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-              <Input
-                type="email"
-                placeholder="Digite seu melhor email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-background/80 border-border text-white placeholder:text-muted-foreground h-14 text-base rounded-lg"
-                required
-              />
-              <Button 
-                type="submit"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 px-10 whitespace-nowrap rounded-lg"
-              >
+              <Input type="email" placeholder="Digite seu melhor email" value={email} onChange={e => setEmail(e.target.value)} className="flex-1 bg-background/80 border-border text-white placeholder:text-muted-foreground h-14 text-base rounded-lg" required />
+              <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-14 px-10 whitespace-nowrap rounded-lg">
                 Começar Agora
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -93,8 +75,6 @@ const HeroSection = () => {
           <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
