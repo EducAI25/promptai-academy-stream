@@ -29,14 +29,14 @@ const HeroSection = () => {
       {/* Content - Reorganized layout */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
             Domine a
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               Inteligência Artificial
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
             Os cursos mais completos e atualizados sobre IA, programação e tecnologia. 
             Aprenda com os melhores especialistas e transforme sua carreira.
           </p>
@@ -73,6 +73,12 @@ const HeroSection = () => {
               <Info className="w-6 h-6 mr-3" />
               Mais Informações
             </button>
+          </div>
+
+          {/* Gradient Effect Below Buttons */}
+          <div className="relative mb-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-xl h-8 transform translate-y-2"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent blur-2xl h-12 transform translate-y-1"></div>
           </div>
 
           <p className="text-muted-foreground text-sm">
