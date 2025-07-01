@@ -16,7 +16,7 @@ const TrendingSection = () => {
     <div className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <h2 className="text-white text-3xl md:text-4xl font-bold mb-8 text-center">
-          🔥 Trending Now
+          🔥 Cursos com Destaque
         </h2>
         
         <div className="grid gap-4 md:gap-6">
